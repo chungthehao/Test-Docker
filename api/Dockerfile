@@ -1,6 +1,9 @@
 # Use this parent image to build my own image (as the 1st layer)
 FROM node:17-alpine
 
+# Install 'nodemon' globally, so that when we use 'volume' to map our folder (host machine) to a folder inside the container, it then applies those changes to the node application as well (automatically restart the node server).
+RUN npm install -g nodemon
+
 # Specify the working directory in the image, so '.' means '/app' in the image
 WORKDIR /app
 
@@ -17,4 +20,4 @@ COPY . .
 EXPOSE 4000
 
 # Run this cmd after a container built from this image
-CMD [ "node", "app.js" ]
+CMD [ "npm", "run", "dev" ]
